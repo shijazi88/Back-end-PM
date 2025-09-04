@@ -9,6 +9,7 @@ services:
       branch: main
       deploy_on_push: true
 
+    build_command: DJANGO_SETTINGS_MODULE=agri_project.settings_production python manage.py collectstatic --noinput
     run_command: gunicorn --worker-tmp-dir /dev/shm agri_project.wsgi
     environment_slug: python
     instance_count: 1
