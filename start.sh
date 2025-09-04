@@ -9,9 +9,13 @@ echo "Starting Django application..."
 echo "Running database migrations..."
 python manage.py migrate --noinput
 
-# Collect static files
-echo "Collecting static files..."
-python manage.py collectstatic --noinput
+# Collect static files (only if not disabled)
+if [ "${DISABLE_COLLECTSTATIC}" != "1" ]; then
+    echo "Collecting static files..."
+    python manage.py collectstatic --noinput
+else
+    echo "Static file collection disabled"
+fi
 
 # Create default superuser if it doesn't exist
 echo "Creating default superuser if needed..."

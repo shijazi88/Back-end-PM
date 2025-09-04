@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'users',
-    'analyze',
+    # 'analyze',  # Temporarily disabled due to PyTorch dependencies during deployment
 ]
 
 MIDDLEWARE = [
