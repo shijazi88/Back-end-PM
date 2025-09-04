@@ -1,0 +1,40 @@
+name: back-end-pm
+region: nyc
+
+services:
+  - name: web
+    source_dir: /
+    github:
+      repo: shijazi88/Back-end-PM
+      branch: main
+      deploy_on_push: true
+
+    run_command: gunicorn --worker-tmp-dir /dev/shm agri_project.wsgi
+    environment_slug: python
+    instance_count: 1
+    instance_size_slug: basic-xxs
+
+    envs:
+      - key: DJANGO_SETTINGS_MODULE
+        value: agri_project.settings_production
+      - key: SECRET_KEY
+        value: ${SECRET_KEY}
+      - key: DEBUG
+        value: "False"
+      - key: ALLOWED_HOSTS
+        value: ${_self.DOMAIN},${_self.DOMAIN_ALIASES}
+      - key: CORS_ALLOWED_ORIGINS
+        value: ${FRONTEND_URL}
+      - key: STRIPE_SECRET_KEY
+        value: ${STRIPE_SECRET_KEY}
+      - key: STRIPE_PUBLISHABLE_KEY
+        value: ${STRIPE_PUBLISHABLE_KEY}
+      - key: SENDGRID_API_KEY
+        value: ${SENDGRID_API_KEY}
+      - key: DEFAULT_FROM_EMAIL
+        value: ${DEFAULT_FROM_EMAIL}
+      - key: FRONTEND_URL
+        value: ${FRONTEND_URL}
+      - key: FRONTEND_ORIGIN
+        value: ${FRONTEND_URL}
+
